@@ -201,4 +201,4 @@ export class AppComponent {
 
 ## Demo
 ---
-Check out the interactive demo on [StackBlitz](https://stackblitz.com/edit/angular-13-zihabk?file=src/app/app.component.ts).
+Check out the interactive demo on [StackBlitz](https://stackblitz.com/edit/ngx-perfect-loading-demo?file=src/app/app.component.scss).
