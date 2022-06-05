@@ -6,7 +6,10 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "ngxp:dev": "ng build ngx-perfect-loading --configuration development & ng serve --open",
+    "ngxp:watch": "ng build ngx-perfect-loading --configuration development --watch & ng serve --open",
+    "ngxp:prod": "ng build ngx-perfect-loading --configuration production"
   },
   "private": true,
   "dependencies": {
@@ -34,6 +37,7 @@
     "karma-coverage": "~2.1.0",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
+    "ng-packagr": "^13.0.0",
     "typescript": "~4.6.2"
   }
 }

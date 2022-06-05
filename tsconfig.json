@@ -11,6 +11,12 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
+    "paths": {
+      "ngx-perfect-loading": [
+        "dist/ngx-perfect-loading/ngx-perfect-loading",
+        "dist/ngx-perfect-loading"
+      ]
+    },
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,

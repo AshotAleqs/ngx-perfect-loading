@@ -105,6 +105,37 @@
           }
         }
       }
+    },
+    "ngx-perfect-loading": {
+      "projectType": "library",
+      "root": "projects/ngx-perfect-loading",
+      "sourceRoot": "projects/ngx-perfect-loading/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/ngx-perfect-loading/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngx-perfect-loading/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ngx-perfect-loading/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-perfect-loading/src/test.ts",
+            "tsConfig": "projects/ngx-perfect-loading/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-perfect-loading/karma.conf.js"
+          }
+        }
+      }
     }
   },
   "defaultProject": "library"
