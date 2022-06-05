@@ -1,5 +1,9 @@
 {
   "name": "ngx-perfect-loading",
+  "author": {
+    "name": "Ashot Aleksanyan",
+    "url": "https://github.com/AshotAleqs"
+  },
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^13.3.0",
@@ -7,5 +11,17 @@
   },
   "dependencies": {
     "tslib": "^2.3.0"
+  },
+  "keywords": [
+    "angular",
+    "angular 13",
+    "load",
+    "loading",
+    "spinner",
+    "ngx-perfect-loading"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AshotAleqs/ngx-perfect-loading.git"
   }
 }
