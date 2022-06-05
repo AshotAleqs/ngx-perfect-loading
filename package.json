@@ -9,7 +9,8 @@
     "test": "ng test",
     "ngxp:dev": "ng build ngx-perfect-loading --configuration development & ng serve --open",
     "ngxp:watch": "ng build ngx-perfect-loading --configuration development --watch & ng serve --open",
-    "ngxp:prod": "ng build ngx-perfect-loading --configuration production"
+    "ngxp:prod": "ng build ngx-perfect-loading --configuration production",
+    "ngxp:publish": "ng build ngx-perfect-loading --configuration production"
   },
   "private": true,
   "dependencies": {
