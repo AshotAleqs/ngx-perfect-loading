@@ -196,7 +196,7 @@ export class AppComponent {
 |`listen()`        | Method to listen loading changes(on/off) by `option`         |      |      |
 |-----------|--------------------------|------------------------------------------|-------------|
 | **Parameters**  | **Type**           | **Default**                              |             |
-| **`option`**    | **`NgxPLoadingType | string`** | **`NgxPLoadingType.GLOBAL`** | **Optional**|
+| **`option`**    | **`NgxPLoadingType \| string`** | **`NgxPLoadingType.GLOBAL`** | **Optional**|
 ***
 
 ## Demo
