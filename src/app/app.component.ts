@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgxPListener, NgxPLoading, NgxPLoadingService } from 'ngx-perfect-loading';
+import { NgxPListener, NgxPLoading } from 'ngx-perfect-loading';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { debounceTime, take } from 'rxjs/operators';
 
@@ -12,9 +12,9 @@ export class AppComponent implements OnInit {
   title = 'library';
   @NgxPListener() loading$!: Observable<boolean>;
 
-  constructor(private _ngxPLoadingService: NgxPLoadingService) {
-    // this.loading$ = this._ngxPLoadingService.listen();
-  }
+  // constructor(private _ngxPLoadingService: NgxPLoadingService) {
+  //   // this.loading$ = this._ngxPLoadingService.listen();
+  // }
 
   ngOnInit(): void {
     console.log(this.loading$);

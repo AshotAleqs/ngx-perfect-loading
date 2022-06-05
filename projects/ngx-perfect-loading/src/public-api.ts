@@ -15,6 +15,8 @@ export * from './lib/services/ngx-p-loading/ngx-perfect-loading.service';
 
 @NgModule()
 export class NgxPLoadingModule {
+  constructor(private _service: NgxPLoadingService) { }
+
   /**
    * Use this method in your root module 
    * to initialize `NgxPLoadingModule` module with `NgxPLoadingService` provider

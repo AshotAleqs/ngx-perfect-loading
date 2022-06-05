@@ -11,7 +11,8 @@ The loading system for Angular 13+ projects.
 ## Installation
 ---
 You can Install `ngx-perfect-loading` via NPM, using the command below. 
-PLEASE NOTE: the Library was created for Angular 13 and high versions
+
+**PLEASE NOTE:** the Library was created for Angular 13 and high versions
 
 ### NPM
 ```shell
