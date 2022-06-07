@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { Observable, share } from 'rxjs';
 import { NgxPLoadingType } from '../enums/ngx-p-loading-type.enum';
 import { NgxPLoadingService } from '../services/ngx-p-loading/ngx-perfect-loading.service';
 
@@ -9,9 +9,7 @@ import { NgxPLoadingService } from '../services/ngx-p-loading/ngx-perfect-loadin
  *
  * @return `void`
  */
-export function NgxPListener(
-  option: NgxPLoadingType | string = NgxPLoadingType.GLOBAL
-) {
+export function NgxPListener(option: NgxPLoadingType | string = NgxPLoadingType.GLOBAL) {
   return (target: {} | any, name: PropertyKey) => {
 
     const descriptor = {
@@ -22,7 +20,7 @@ export function NgxPListener(
             throw 'Please inject NgxPLoadingService service in your Root Module (AppModule)'
           }
           const listener$ = NgxPLoadingService.instance.listen(option);
-          this[propertyName] = listener$;
+          this[propertyName] = listener$.pipe(share());
         }
 
         return this[propertyName];

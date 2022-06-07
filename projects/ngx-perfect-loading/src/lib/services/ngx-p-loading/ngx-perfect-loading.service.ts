@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { NgxPLoadingType } from '../../enums/ngx-p-loading-type.enum';
 import { NgxPLoadingItem } from '../../models/ngx-p-loading-item';
@@ -25,26 +25,32 @@ export class NgxPLoadingService {
   constructor() { NgxPLoadingService.instance = this; }
 
   /**
-   * function for turn on the loading by type `loading` and with `name` name
+   * turn `on` the loading by `loading` 
+   * where `loading` can be the name or the type(`GLOBAL` or `LOCAL` ) of loading
    *
-   * @param loading - `NgxPLoadingType.LOCAL` | `NgxPLoadingType.GLOBAL`
-   * @param name - `string` required when `loading` is `NgxPLoadingType.LOCAL`
+   * @param loading - is the type or the name of the loading item
    *
-   * @return the unique name of the current turned on loading
+   * @return the unique name of the loading item, 
+   * where the loading name can be provided by user by `loading` paramenter
    */
-  on(loading: NgxPLoadingType.LOCAL, name: string): string
-  on(loading?: NgxPLoadingType.GLOBAL, name?: string): string
-  on(
-    loading: NgxPLoadingType = NgxPLoadingType.GLOBAL,
-    name?: string
-  ): string {
+  on(loading: NgxPLoadingType | string = NgxPLoadingType.GLOBAL): string {
 
-    const uuid = new Date().getTime()
+    const uuid = new Date().getTime();
     // get unique id for the notifier
-    const loadingName = name || `loading-${uuid}`;
+    let loadingName = `loading-${uuid}`;
+
+    if (!loading || loading === NgxPLoadingType.GLOBAL) {
+      loading = NgxPLoadingType.GLOBAL;
+
+    } else {
+      // check at first the loading, it can be provided as a name
+      loadingName = loading === NgxPLoadingType.LOCAL ? loadingName : loading;
+      loading = NgxPLoadingType.LOCAL;
+    }
+
 
     const ngxPerfectLoadingItem: NgxPLoadingItem = {
-      loading: loading,
+      loading: loading as NgxPLoadingType,
       name: loadingName
     };
 
@@ -54,41 +60,38 @@ export class NgxPLoadingService {
   }
 
   /**
-   * function for turn off the loading by `option`
+   * turn `off` the loading by `loading` 
+   * where `loading` can be the name or the type(`GLOBAL` or `LOCAL` ) of loading
    *
-   * @param option is the name or
-   * type(`NgxPLoadingType.LOCAL` | `NgxPLoadingType.GLOBAL`) of the loading
-   * by default is `NgxPLoadingType.GLOBAL`
+   * @param loading is the type or the name of the loading item
+   * by default is the type - `NgxPLoadingType.GLOBAL`
    *
-   * @return `true` when something was turned off, otherwise `false`
+   * @return `true` when it found the item by `loading` name or type
    */
-  off(option: NgxPLoadingType | string = NgxPLoadingType.GLOBAL) {
+  off(loading: NgxPLoadingType | string = NgxPLoadingType.GLOBAL) {
     const length = this.loadingItems?.length;
 
     this.loadingItems = this.loadingItemsList
-      .filter(item => item.name !== option && item.loading !== option);
+      .filter(item => !(item.name === loading || item.loading === loading));
 
     return length !== this.loadingItems?.length;
   }
 
   /**
-   * function to listen loading turno on/off by `option`
+   * listen the loading changes by `loading` 
+   * where `loading` can be the name or the type(`GLOBAL` or `LOCAL` ) of loading
    *
-   * @param option is the name or
-   * type(`NgxPLoadingType.LOCAL` | `NgxPLoadingType.GLOBAL`)
-   * by default is `NgxPLoadingType.GLOBAL`
+   * @param loading - is the type or the name of the loading item
    *
-   * @return Observable that will emit `boolean` value referring to `option`
+   * @return listener for `loading`, 
+   * where `loading` can be the name or the type(`GLOBAL` or `LOCAL` ) of loading
    */
-  listen(option: NgxPLoadingType | string = NgxPLoadingType.GLOBAL) {
+  listen(loading: NgxPLoadingType | string = NgxPLoadingType.GLOBAL) {
     return this._loadingChange
       .asObservable()
       .pipe(
         debounceTime(10),
-        filter((items) => (
-          !items?.length
-          || !!items?.find(i => i.loading === option || i.name === option)
-        )),
+        map(items => items?.filter(i => i.loading === loading || i.name === loading)),
         map(items => !!items?.length),
         distinctUntilChanged()
       );

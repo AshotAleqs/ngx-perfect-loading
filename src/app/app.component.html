@@ -1,5 +1,35 @@
-<div
-  *ngIf="loading$ | async"
-  class="test">
-  loading
+<button (click)="onClick()" class="simple-button">
+  Click to Show <span class="highlight">GLOBAL</span> Loading
+</button>
+<button
+  (click)="onTurnOnLocalLoading()"
+  class="simple-button mt-2"
+  [disabled]="localListener$ | async"
+>
+  <ng-container *ngIf="!(localListener$ | async)">
+    Click To Show <span class="highlight">LOCAL</span> Loading
+  </ng-container>
+  <ng-container *ngIf="localListener$ | async">
+    You can disable, show loading indicator, etc.
+  </ng-container>
+</button>
+<button
+  (click)="onTurnOnLocalLoading2()"
+  class="simple-button mt-2"
+  [disabled]="localListener2$ | async"
+>
+  <ng-container *ngIf="!(localListener2$ | async)">
+    Click To Show <span class="highlight">LOCAL</span> Loading
+  </ng-container>
+  <ng-container *ngIf="localListener2$ | async">
+    You can disable, show loading indicator, etc.
+  </ng-container>
+</button>
+
+<div *ngIf="loading$ | async" class="loading-container">
+  <!-- you can have other spinner icon, the idea of the library to give you whole control on it -->
+  <div class="lds-ripple">
+    <div></div>
+    <div></div>
+  </div>
 </div>

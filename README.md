@@ -98,7 +98,7 @@ export enum NgxPLoadingType {
 | `@NgxPListener()` | The Property decorator for loading listener by `option`     |      |      |
 |-------------------|------------------------------|------------------------------|-------------|
 | **Parameters**    | **Type**                     | **Default**                  |             |
-| **`option`**      | **`NgxPLoadingType | string`**| **`NgxPLoadingType.GLOBAL`**| **Optional**| 
+| **`option`**      | **`NgxPLoadingType \| string`**| **`NgxPLoadingType.GLOBAL`**| **Optional**| 
 **Usage Example**
 ```
 import { Component, OnInit } from '@angular/core';
@@ -142,8 +142,7 @@ export class AppComponent {
 | `@NgxPLoading()`  | The Method Decorator allows to add loading to the methods. The function is turning `on` the loading by type `loading` and turning it `off` when function execution ends. Also can work with `Promises` and `Observables` |                      |                        |
 |-------------------|-------------------------------------------|-------------|-----------------|
 | **Parameters**    | **Type**              | **Default** |                                     |
-| **`loading`**     | **`NgxPLoadingType`** | **`NgxPLoadingType.GLOBAL`** | **Optional**       |
-| **`option`**      | **`{name: string }`** | **Undefiened**               | **Required when `loading` is `NgxPLoadingType.LOCAL`**                                                          |
+| **`loading`**     | **`NgxPLoadingType \| string`** | **`NgxPLoadingType.GLOBAL`** | **Optional**       |
 
 **Usage Example** 
 ```
@@ -182,24 +181,31 @@ export class AppComponent {
 ```
 
 ### NgxPLoadingService Methods
+
 ***
-|`on()`     | turn `on` the loading by type `loading` and with `name` name |         |          |
+|`on()`     | turn `on` the loading by `loading` where `loading` can be the name or the type(`GLOBAL` or `LOCAL` ) of loading |                             |                           |
 |-----------|------------------------------------------------------------|---------|------------|
 | **Parameters**    | **Type**              | **Default**                  |                    |
-| **`loading`**     | **`NgxPLoadingType`** | **`NgxPLoadingType.GLOBAL`** | **Optional**       |
-| **`name`**        | **`string`**          | **`NgxPLoadingType.GLOBAL`** |**Required when `loading` is `NgxPLoadingType.LOCAL`**                                                          |
+| **`loading`** | **`NgxPLoadingType \| string`** | **`NgxPLoadingType.GLOBAL`** |**Optional**  |
+| **Returns**    | **Type**               |                          |                          |
+| Returns the unique name of the loading item, where the loading name can be provided by user by `loading` paramenter | **`string`** |                         |                                 |
+
 ***
-|`off()`  | turn `off` the loading by `option` where option can be the name or the type(`GLOBAL` or `LOCAL` ) of loading |              |                                                        |
+|`off()`  | turn `off` the loading by `loading` where `loading` can be the name or the type(`GLOBAL` or `LOCAL` ) of loading |              |                                          |
 |-----------|--------------------------|------------------------------------------|-------------|
 | **Parameters**  | **Type**           | **Default**                              |             |
-| **`option`**    | **`NgxPLoadingType | string`** | **`NgxPLoadingType.GLOBAL`** | **Optional**|
+| **`loading`**   | **`NgxPLoadingType \| string`** | **`NgxPLoadingType.GLOBAL`** |**Optional**|
+| **Returns**    | **Type**               |                          |                          |
+| Returns `true` when it found the item by `loading` name or type  | **`boolean`** |      |     |
+
 ***
-|`listen()`        | Method to listen loading changes(on/off) by `option`         |      |      |
+|`listen()`  | listen the loading changes by `loading` where `loading` can be the name or the type(`GLOBAL` or `LOCAL` ) of loading    |                     |                                |
 |-----------|--------------------------|------------------------------------------|-------------|
 | **Parameters**  | **Type**           | **Default**                              |             |
-| **`option`**    | **`NgxPLoadingType \| string`** | **`NgxPLoadingType.GLOBAL`** | **Optional**|
-***
+| **`loading`**  | **`NgxPLoadingType \| string`** | **`NgxPLoadingType.GLOBAL`** | **Optional**|
+| **Returns**    | **Type**               |                          |                          |
+| Returns listener for `loading`, where `loading` can be the name or the type(`GLOBAL` or `LOCAL` ) of loading  | **`Observable<boolean>`** |                        |                            |
 
 ## Demo
 ---
-Check out the interactive demo on [StackBlitz](https://stackblitz.com/edit/ngx-perfect-loading-demo?file=src/app/app.component.scss).
+Check out the interactive demo on [StackBlitz](https://stackblitz.com/edit/ngx-perfect-loading-demo?file=src/app/app.component.ts).

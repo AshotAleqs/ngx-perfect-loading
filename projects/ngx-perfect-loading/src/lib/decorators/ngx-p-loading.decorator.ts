@@ -13,24 +13,16 @@ type DecoratorFunction = (
  * the decorator is turning on the loading by type `loading` 
  * and turning it off when function execution ends
  *
- * @param loading is the type of loading: 
- * can be `NgxPLoadingType.GLOBAL` or `NgxPLoadingType.LOCAL`
- * @param options contains the name of loading, not needed for global
+ * @param loading is the type or the name of the loading
  *
  * @return `void`
  */
-export function NgxPLoading(loading?: NgxPLoadingType.GLOBAL): DecoratorFunction;
 export function NgxPLoading(
-  loading: NgxPLoadingType.LOCAL,
-  options: { name: string; }
-): DecoratorFunction
-export function NgxPLoading(
-  loading: NgxPLoadingType = NgxPLoadingType.GLOBAL,
-  options?: { name: string; }
+  loading: NgxPLoadingType | string = NgxPLoadingType.GLOBAL
 ): DecoratorFunction {
 
   return (
-    target: Object,
+    _: Object,
     _1: string,
     descriptor: PropertyDescriptor
   ) => {
@@ -41,21 +33,20 @@ export function NgxPLoading(
       if (!NgxPLoadingService.instance) {
         throw 'Please inject NgxPLoadingService service in your Root Module (AppModule)'
       }
-      NgxPLoadingService.instance.on(loading as any, options?.name);
+
+      let name = NgxPLoadingService.instance.on(loading);
 
       const result = originalMethod.apply(this, args);
 
       if (result instanceof Promise) {
-        return result.finally(() => NgxPLoadingService.instance.off(options?.name));
+        return result.finally(() => NgxPLoadingService.instance.off(name));
       } else if (result instanceof Observable) {
 
-        return result.pipe(finalize(() => NgxPLoadingService.instance.off(options?.name)));
+        return result.pipe(finalize(() => NgxPLoadingService.instance.off(name)));
       }
 
-      NgxPLoadingService.instance.off(options?.name);
-
+      NgxPLoadingService.instance.off(name);
       return result;
-
     };
 
     return descriptor;
